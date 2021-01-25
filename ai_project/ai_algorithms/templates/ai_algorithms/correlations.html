@@ -1,0 +1,32 @@
+{% extends "ai_algorithms/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h1 class="display-1">Correlaciones</h1>
+</div>
+
+<div class="container text-center pt-3">
+    <div class="info_required py-3 my-2">
+        <form enctype="multipart/form-data", method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class='form-group'>
+                <label for="{{ field.name }}">{{ field.label }}</label>
+                {{ field }}
+            </div>
+            {% endfor %}
+            <p><input type = "submit" value = "Iniciar" /></p>
+        </form>
+    </div>
+</div>
+
+{% if sheet != None %}
+<div class="mx-4 my-4">
+    {{ sheet|safe }}
+    <img src="{% static 'image/correlation/matriz.png' %}" class="rounded float-left px-4" alt="Matriz">
+    <img src="{% static 'image/correlation/correlation.png' %}" class="rounded float-right px-4" alt="Gráfica de correlación">
+</div>
+
+{% endif %}
+
+{% endblock content %}

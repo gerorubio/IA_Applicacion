@@ -1,0 +1,48 @@
+{% extends "ai_algorithms/base.html" %}
+{% block content %}
+<div class="container">
+    <h1 class="display-1">Apriori</h1>
+</div>
+
+<div class="container text-center pt-3">
+    <div class="info_required py-3 my-2">
+        <form enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class='form-group'>
+                <label for="{{ field.name }}">{{ field.label }}</label>
+                {{ field }}
+            </div>
+            {% endfor %}
+            <p><input type = "submit" value = "Iniciar" /></p>
+        </form>
+    </div>
+</div>
+
+{% if sheet != None %}
+<div class="mx-4 my-4">
+    {{ sheet|safe }}
+</div>
+{% endif %}
+
+<div class="container">
+    {% if results != None %}
+    <h2 class="display-1">Resultados</h2>
+    <div class="mx-4 my-4">
+        {% for row in results %}
+            <p class="h3"><span class="badge badge-secondary">
+            {% for item in row.0 %}
+                {{ item }} →
+            {% endfor %}
+            </span></p>
+            <p class="h5">
+                <span class="badge badge-info">Soporte: </span>{{ row.1 }}
+                <span class="badge badge-info">Confianza: </span>{{ row.2 }}
+                <span class="badge badge-info">Elevación: </span>{{ row.3 }}
+            </p>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock content %}

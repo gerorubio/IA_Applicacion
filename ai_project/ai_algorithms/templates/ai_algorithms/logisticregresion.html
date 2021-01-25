@@ -1,0 +1,52 @@
+{% extends "ai_algorithms/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h1 class="display-1">Regresión Logística</h1>
+</div>
+
+<div class="container text-center pt-3">
+    <div class="info_required py-3 my-2">
+        <form enctype="multipart/form-data", method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class='form-group'>
+                <label for="{{ field.name }}">{{ field.label }}</label>
+                {{ field }}
+            </div>
+            {% endfor %}
+            <p><input type = "submit" value = "Iniciar" /></p>
+        </form>
+    </div>
+</div>
+
+{% if pase != None %}
+<div class="mx-2 my-4">
+    <img src="{% static 'image/regression/heatmap.png' %}" class="mx-auto d-block" alt="Mapa de calor">
+    <img src="{% static 'image/regression/plot.png' %}" class="mx-auto d-block" alt="Mapa de calor">
+
+    {% if exactitud >= 0.90 %}
+        <div class="container align-self-center bg-info text-white my-4">
+            <div>El modelo realizado presenta una exactitud de {{ exactitud }}.</div>
+        </div>
+    {% else %}
+        <div class="container align-self-center bg-danger text-white my-4">
+            El modelo realizado presenta una exactitud de {{ exactitud }}, se recomienda probar otras variables para la aproximación.
+        </div>
+    {% endif %}
+
+    {% if prediccion == 1 %}
+        <div class="container align-self-center bg-primary text-white">
+            El paciente ingresado presenta una gran probabilidad de poseer un tumor benigno.
+        </div>
+    {% else %}
+        <div class="container align-self-center bg-danger text-white">
+            El paciente ingresado no presenta probabilidad de poseer un tumor maligno.
+        </div>
+    {% endif %}
+
+</div>
+
+{% endif %}
+
+{% endblock content %}

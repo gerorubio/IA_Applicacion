@@ -1,0 +1,45 @@
+{% extends "ai_algorithms/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h1 class="display-1">Clustering K-means</h1>
+</div>
+
+<div class="container text-center pt-3">
+    <div class="info_required py-3 my-2">
+        <form enctype="multipart/form-data", method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class='form-group'>
+                <label for="{{ field.name }}">{{ field.label }}</label>
+                {{ field }}
+            </div>
+            {% endfor %}
+            <p><input type = "submit" value = "Iniciar" /></p>
+        </form>
+    </div>
+</div>
+
+{% if pase != None %}
+<div class="mx-2 my-4">
+    <img src="{% static 'image/clustering/heatmap.png' %}" class="mx-auto d-block" alt="Mapa de calor">
+    <img src="{% static 'image/clustering/plot.png' %}" class="mx-auto d-block" alt="Mapa de calor">
+    <img src="{% static 'image/clustering/clusters.png' %}" class="mx-auto d-block" alt="Mapa de calor">
+
+    <div class="container my-4 py-2 px-4 bg-info">
+        <h2 class="text-center text-white">Pacientes mas cercanos al cluster 0</h2>
+        <h3 class="text-center text-white">Probabilidad alta de cáncer</h3>
+
+        <table>
+            {% for r in pacientes %}
+                {% cycle '<tr>' '' '' '' %}
+                    <td class="font-weight-bold text-danger">{{r}}</td>
+                {% cycle '' '' '' '</tr>' %}
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endif %}
+
+{% endblock content %}

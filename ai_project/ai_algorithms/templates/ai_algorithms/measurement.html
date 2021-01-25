@@ -1,0 +1,29 @@
+{% extends "ai_algorithms/base.html" %}
+{% block content %}
+<div class="container">
+    <h1 class="display-1">Métricas de medición</h1>
+</div>
+
+<div class="container text-center pt-3">
+    <div class="info_required py-3 my-2">
+        <form enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.name }}">{{ field.label }}</label>
+                {{ field }}
+            </div>
+            {% endfor %}
+            <p><input type="submit" value="Iniciar"></p>
+        </form>
+    </div>
+</div>
+
+{% if sheet != None %}
+<div class="mx-2 my-4">
+    {{ sheet|safe }}
+</div>
+
+{% endif %}
+
+{% endblock content %}
