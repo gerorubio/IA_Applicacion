@@ -265,6 +265,7 @@ def regresionMethod(request):
             nuevoPaciente = pd.DataFrame({'Texture': [pacienteTextura], 'Area': [pacienteArea], 'Compactness': [pacienteCompacidad], 'Concavity': [pacienteConcavidad], 'Symmetry': [pacienteSimetria], 'FractalDimension': [pacienteDimensionFractal]})
             prediccion = clasificacion.predict(nuevoPaciente)
             prediccion = prediccion[0]
+            print(prediccion)
             pase = 1
 
     return render(request, 'ai_algorithms/logisticregresion.html', {'form': form, 'pase': pase, 'prediccion': prediccion, 'exactitud': exactitud})
